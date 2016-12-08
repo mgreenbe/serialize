@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 
+<head>
+    <script src="../js/serialize.js"></script>
+</head>
+
 <body>
     <h2>Form serialization</h2>
     <form id="form">
@@ -32,20 +36,20 @@
         
         const serializeButton = document.getElementById("serialize-button");
 
-        const serialize = function(form) {
-            const formData = new FormData(form);
-            const serial = {};
-            for (const [key, value] of formData.entries()) {
-                if (key in serial) {
-                    const x = serial[key];
-                    const y = Array.isArray(x) ? x : [x];
-                    serial[key] = [...y, value];
-                } else {
-                    serial[key] = value;
-                }
-            }
-            return serial;
-        }
+        // const serialize = function(form) {
+        //     const formData = new FormData(form);
+        //     const serial = {};
+        //     for (const [key, value] of formData.entries()) {
+        //         if (key in serial) {
+        //             const x = serial[key];
+        //             const y = Array.isArray(x) ? x : [x];
+        //             serial[key] = [...y, value];
+        //         } else {
+        //             serial[key] = value;
+        //         }
+        //     }
+        //     return serial;
+        // }
 
         serializeButton.addEventListener('click', () => {
             let serial = serialize(form);
