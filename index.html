@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<body>
+    <h2>Form serialization</h2>
+    <form id="form">
+        <p>
+            <input name="food" type="checkbox" value="pizza"> pizza
+            <input name="food" type="checkbox" value="fries"> fries
+            <input name="food" type="checkbox" value="burger"> burger
+        </p>
+        <p>
+            <input name="color" type="checkbox" value="green"> green
+            <input name="color" type="checkbox" value="red"> red
+            <input name="color" type="checkbox" value="blue"> blue
+        </p>
+        <p>
+            <input type="radio" name="subject" value="math"> math
+            <input type="radio" name="subject" value="physics"> physics
+        </p>
+        <p>
+            <select name="dropdown">
+                <option value="math" selected>math</option>
+                <option value="physics">physics</option>
+            </select>
+        </p>
+    </form>
+
+    <button id="serialize-button">Serialize</button>
+
+    <script>
+        const form = document.getElementById('form');
+        
+        const serializeButton = document.getElementById("serialize-button");
+
+        const serialize = function(form) {
+            const formData = new FormData(form);
+            const serial = {};
+            for (const [key, value] of formData.entries()) {
+                if (key in serial) {
+                    const x = serial[key];
+                    const y = Array.isArray(x) ? x : [x];
+                    serial[key] = [...y, value];
+                } else {
+                    serial[key] = value;
+                }
+            }
+            return serial;
+        }
+
+        serializeButton.addEventListener('click', () => {
+            let serial = serialize(form);
+            console.log(JSON.stringify(serial, 0, 2));
+            return serial;
+        });
+   </script>
+</body>
